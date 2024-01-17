@@ -89,16 +89,16 @@ class GroupService extends \JiraCloud\JiraClient
      * Adds given user to a group.
      *
      * @param string $groupName
-     * @param string $userName
+     * @param string $accountId
      *
      * @throws \JiraCloud\JiraException
      * @throws \JsonMapper_Exception
      *
      * @return Group Returns the current state of the group.
      */
-    public function addUserToGroup(string $groupName, string $userName)
+    public function addUserToGroup(string $groupName, string $accountId)
     {
-        $data = json_encode(['name' => $userName]);
+        $data = json_encode(['accountId' => $accountId]);
 
         $ret = $this->exec($this->uri.'/user?groupname='.urlencode($groupName), $data);
 
@@ -116,15 +116,15 @@ class GroupService extends \JiraCloud\JiraClient
      * Removes given user from a group.
      *
      * @param string $groupName
-     * @param string $userName
+     * @param string $accountId
      *
      * @throws \JiraCloud\JiraException
      *
      * @return string|null Returns no content
      */
-    public function removeUserFromGroup(string $groupName, string $userName)
+    public function removeUserFromGroup(string $groupName, string $accountId)
     {
-        $param = http_build_query(['groupname' => $groupName, 'username' => $userName]);
+        $param = http_build_query(['groupname' => $groupName, 'accountId' => $accountId]);
 
         $ret = $this->exec($this->uri.'/user?'.$param, [], 'DELETE');
 
